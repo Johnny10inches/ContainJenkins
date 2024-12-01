@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG JENKINS_TAG=stable
+ARG JENKINS_TAG=master
 
 ENV DEBIAN_FRONTEND=noninteractive
 
