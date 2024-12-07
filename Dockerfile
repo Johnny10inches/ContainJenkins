@@ -4,7 +4,7 @@ ARG JENKINS_TAG=master
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies and clean up after installation
+# Установка зависимостей и очистка после установки
 RUN apt-get update && apt-get install -y \
     apt-utils \
     git \
@@ -14,14 +14,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-# Install Maven 4.0.0-rc-1
+# Установка Maven 4.0.0-rc-1
 RUN wget https://downloads.apache.org/maven/maven-4/4.0.0-rc-1/binaries/apache-maven-4.0.0-rc-1-bin.tar.gz && \
     tar -xzf apache-maven-4.0.0-rc-1-bin.tar.gz && \
     mv apache-maven-4.0.0-rc-1 /opt/maven && \
     rm apache-maven-4.0.0-rc-1-bin.tar.gz && \
     ln -s /opt/maven/bin/mvn /usr/bin/mvn
 
-# Clone Jenkins repository, build, and move the war file
+# Клонирование репозитория Jenkins, сборка и перемещение war файла
 RUN git clone https://github.com/jenkinsci/jenkins.git && \
     cd jenkins && \
     git checkout ${JENKINS_TAG} && \
@@ -32,5 +32,5 @@ RUN git clone https://github.com/jenkinsci/jenkins.git && \
 
 EXPOSE 8080
 
-# Run Jenkins
+# Запуск Jenkins
 CMD ["java", "-jar", "/opt/jenkins.war"]
